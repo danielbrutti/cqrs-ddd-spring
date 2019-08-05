@@ -23,6 +23,13 @@ allprojects {
             println "I'm $task.project.name"
         }
     }
+
+    test {
+        testLogging {
+            // make sure that when a test fails with exception, full stack trace is printed
+            exceptionFormat = 'full'
+        }
+    }
 }
 
 subprojects {
