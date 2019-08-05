@@ -1,0 +1,5 @@
+rootProject.name = 'cqrs-ddd-spring'
+
+include 'src:shared'
+include 'src:backoffice'
+include 'src:kanban'
