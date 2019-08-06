@@ -1,16 +1,13 @@
 package org.danielbrutti.cqrs.ddd.spring.backoffice.task.application;
 
-import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.Task;
-import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskFinder;
-import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskRepository;
-import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskStub;
+import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.*;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public final class UpdateTaskTest {
+public final class PublishCommentTest {
 
     private TaskRepository repository;
     private TaskFinder finder;
@@ -29,23 +26,20 @@ public final class UpdateTaskTest {
         doNothing().when(repository).save(any());
         doNothing().when(publisher).publish(anySet());
         when(finder.find(any())).thenReturn(task);
+
     }
 
     @Test
-    void should_update_task() {
+    void should_create_comment() {
 
-        TaskUpdater updater = new TaskUpdater(finder, repository, publisher);
+        TaskCommentPublisher commentPublisher = new TaskCommentPublisher(finder, repository, publisher);
 
-        Task updatedTask = TaskStub.random();
+        CommentContent content = new CommentContent("A new comment for my task");
 
-        task.update(updatedTask);
+        commentPublisher.publish(task.getTaskId(), content);
 
-        updater.update(task);
-
-        verify(task, times(1)).update(updatedTask);
-        verify(repository, times(1)).save(task);
+        verify(repository, times(1)).save(any());
         verify(publisher, times(1)).publish(anySet());
-
+        verify(task, times(1)).publishComment(content);
     }
-
 }

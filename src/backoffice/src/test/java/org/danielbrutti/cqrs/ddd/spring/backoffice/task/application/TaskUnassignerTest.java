@@ -1,16 +1,18 @@
 package org.danielbrutti.cqrs.ddd.spring.backoffice.task.application;
 
+import org.danielbrutti.cqrs.ddd.spring.backoffice.shared.domain.DeveloperId;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.Task;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskFinder;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskRepository;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskStub;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
+import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.UuidVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public final class UpdateTaskTest {
+public final class TaskUnassignerTest {
 
     private TaskRepository repository;
     private TaskFinder finder;
@@ -29,23 +31,18 @@ public final class UpdateTaskTest {
         doNothing().when(repository).save(any());
         doNothing().when(publisher).publish(anySet());
         when(finder.find(any())).thenReturn(task);
+
     }
 
     @Test
-    void should_update_task() {
+    void should_unassign_task() {
 
-        TaskUpdater updater = new TaskUpdater(finder, repository, publisher);
+        TaskUnassigner unassigner = new TaskUnassigner(finder, repository, publisher);
 
-        Task updatedTask = TaskStub.random();
+        unassigner.unassign(task.getTaskId());
 
-        task.update(updatedTask);
-
-        updater.update(task);
-
-        verify(task, times(1)).update(updatedTask);
-        verify(repository, times(1)).save(task);
+        verify(repository, times(1)).save(any());
         verify(publisher, times(1)).publish(anySet());
-
+        verify(task, times(1)).unassign();
     }
-
 }

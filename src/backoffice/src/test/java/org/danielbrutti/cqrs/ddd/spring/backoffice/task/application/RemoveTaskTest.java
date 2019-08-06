@@ -1,13 +1,17 @@
 package org.danielbrutti.cqrs.ddd.spring.backoffice.task.application;
 
-import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.*;
+import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.Task;
+import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskFinder;
+import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskRepository;
+import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskStub;
+import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskId;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public final class DeleteTaskTest {
+public final class RemoveTaskTest {
 
     private TaskRepository repository;
     private TaskFinder finder;
@@ -17,7 +21,7 @@ public final class DeleteTaskTest {
 
     @BeforeEach
     void setUp() {
-        task = TaskStub.random();
+        task = spy(TaskStub.random());
 
         repository = mock(TaskRepository.class);
         publisher = mock(DomainEventPublisher.class);
@@ -31,12 +35,13 @@ public final class DeleteTaskTest {
     @Test
     void should_delete_task() {
 
-        TaskDeleter taskDeleter = new TaskDeleter(finder, repository, publisher);
+        TaskRemover remover = new TaskRemover(finder, repository, publisher);
 
         TaskId taskId = task.getTaskId();
 
-        taskDeleter.delete(taskId);
+        remover.delete(taskId);
 
+        verify(task, times(1)).delete();
         verify(repository, times(1)).delete(taskId);
         verify(publisher, times(1)).publish(anySet());
 

@@ -1,14 +1,14 @@
-package org.danielbrutti.cqrs.ddd.spring.backoffice.task.application;
+package org.danielbrutti.cqrs.ddd.spring.backoffice.developer.application;
 
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.*;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
 
-public final class TaskCreator {
+public final class DeveloperCreator {
 
     private TaskRepository repository;
     private DomainEventPublisher publisher;
 
-    public TaskCreator(TaskRepository repository, DomainEventPublisher publisher) {
+    public DeveloperCreator(TaskRepository repository, DomainEventPublisher publisher) {
         this.repository = repository;
         this.publisher = publisher;
     }

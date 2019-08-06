@@ -4,16 +4,20 @@ import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.InmutableDateT
 
 import java.time.LocalDateTime;
 
-public final class TaskCreationDate extends InmutableDateTimeVO {
-    public TaskCreationDate(LocalDateTime localDateTime) {
+public final class CommentDateTime extends InmutableDateTimeVO {
+    public CommentDateTime(LocalDateTime localDateTime) {
         super(localDateTime);
 
         this.guardIsNotInFuture();
     }
 
+    public static CommentDateTime now() {
+        return new CommentDateTime(LocalDateTime.now());
+    }
+
     private void guardIsNotInFuture() throws IllegalArgumentException {
         if (value.isAfter(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Creation date can not be in future");
+            throw new IllegalArgumentException("Task History Date can not be in future");
         }
     }
 }

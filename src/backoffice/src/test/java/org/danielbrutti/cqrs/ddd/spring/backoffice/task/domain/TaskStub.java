@@ -3,13 +3,12 @@ package org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.UuidVO;
 
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.util.Random;
 
 public final class TaskStub {
 
     public static Task random() {
-        Task task = new Task(
+        Task task = Task.create(
                 randomTaskId(),
                 randomType(),
                 randomTitle(),
@@ -21,8 +20,8 @@ public final class TaskStub {
         return task;
     }
 
-    public static TaskCreationDate randomCreationDate() {
-        return new TaskCreationDate(LocalDateTime.now());
+    public static TaskCreationDateTime randomCreationDate() {
+        return TaskCreationDateTime.now();
     }
 
     public static TaskDescription randomDescription() {
@@ -46,7 +45,7 @@ public final class TaskStub {
 
     public static TaskType randomType() {
         Random random = new Random();
-        switch (random.nextInt(3) + 1){
+        switch (random.nextInt(3) + 1) {
             case 1:
                 return new TaskType("Story");
             case 2:

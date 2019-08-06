@@ -1,4 +1,4 @@
-package org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain;
+package org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.event;
 
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEvent;
 
