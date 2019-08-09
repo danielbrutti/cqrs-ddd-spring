@@ -1,3 +1,16 @@
+plugins {
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.1.7.RELEASE'
+}
+
+ext { springBootVersion = '2.1.7.RELEASE' }
+
 dependencies {
     compile project(":src:shared")
+
+    compile "org.springframework.boot:spring-boot:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+
 }

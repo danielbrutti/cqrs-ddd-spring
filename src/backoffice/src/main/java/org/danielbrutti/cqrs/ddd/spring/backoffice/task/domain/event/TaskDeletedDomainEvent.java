@@ -6,12 +6,12 @@ import java.util.Map;
 
 public final class TaskDeletedDomainEvent extends DomainEvent {
 
-    public TaskDeletedDomainEvent(String aggregateId, Map<String, Object> data) {
-        super(aggregateId, data);
+    public TaskDeletedDomainEvent(String aggregateId) {
+        super(aggregateId);
     }
 
     @Override
     public String getEventName() {
-        return TaskDeletedDomainEvent.class.getCanonicalName();
+        return "org.danielbrutti.task.removed";
     }
 }

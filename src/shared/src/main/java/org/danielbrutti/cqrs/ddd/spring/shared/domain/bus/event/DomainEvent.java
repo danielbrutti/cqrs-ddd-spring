@@ -1,23 +1,20 @@
 package org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event;
 
-import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.InmutableDateTimeVO;
+import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.ImmutableDateTimeVO;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.UuidVO;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 public abstract class DomainEvent {
 
     private String eventId;
     private String aggregateId;
-    private InmutableDateTimeVO ocurredOn;
-    private Map<String, Object> data;
+    private ImmutableDateTimeVO ocurredOn;
 
-    public DomainEvent(String aggregateId, Map<String, Object> data) {
+    public DomainEvent(String aggregateId) {
         this.aggregateId = aggregateId;
-        this.data = data;
         this.eventId = UuidVO.random().toString();
-        this.ocurredOn = new InmutableDateTimeVO(LocalDateTime.now());
+        this.ocurredOn = new ImmutableDateTimeVO(LocalDateTime.now());
     }
 
     public String getEventId() {
@@ -28,12 +25,8 @@ public abstract class DomainEvent {
         return aggregateId;
     }
 
-    public InmutableDateTimeVO getOcurredOn() {
+    public ImmutableDateTimeVO getOcurredOn() {
         return ocurredOn;
-    }
-
-    public Map<String, Object> getData() {
-        return data;
     }
 
     public abstract String getEventName();

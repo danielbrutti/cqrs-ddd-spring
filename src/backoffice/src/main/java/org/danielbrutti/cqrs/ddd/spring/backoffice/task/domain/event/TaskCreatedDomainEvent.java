@@ -6,12 +6,12 @@ import java.util.Map;
 
 public final class TaskCreatedDomainEvent extends DomainEvent {
 
-    public TaskCreatedDomainEvent(String aggregateId, Map<String, Object> data) {
-        super(aggregateId, data);
+    public TaskCreatedDomainEvent(String aggregateId) {
+        super(aggregateId);
     }
 
     @Override
     public String getEventName() {
-        return TaskCreatedDomainEvent.class.getCanonicalName();
+        return "org.danielbrutti.task.created";
     }
 }

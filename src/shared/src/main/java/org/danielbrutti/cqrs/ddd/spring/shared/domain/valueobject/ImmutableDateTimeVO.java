@@ -3,11 +3,11 @@ package org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class InmutableDateTimeVO implements ValueObject<LocalDateTime> {
+public class ImmutableDateTimeVO implements ValueObject<LocalDateTime> {
 
     protected LocalDateTime value;
 
-    public InmutableDateTimeVO(LocalDateTime localDateTime){
+    public ImmutableDateTimeVO(LocalDateTime localDateTime){
         this.value = localDateTime;
     }
 
@@ -20,7 +20,7 @@ public class InmutableDateTimeVO implements ValueObject<LocalDateTime> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        InmutableDateTimeVO that = (InmutableDateTimeVO) o;
+        ImmutableDateTimeVO that = (ImmutableDateTimeVO) o;
         return Objects.equals(value, that.value);
     }
 

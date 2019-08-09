@@ -5,9 +5,7 @@ import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.event.*;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.aggregate.AggregateRoot;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.UuidVO;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public final class Task extends AggregateRoot {
@@ -30,7 +28,7 @@ public final class Task extends AggregateRoot {
         this.title = title;
         this.description = description;
         this.creationDate = creationDate;
-        this.comments = new HashSet();
+        this.comments = new HashSet<Comment>();
         this.state = new TaskState(TaskState.OPEN);
     }
 
@@ -38,10 +36,7 @@ public final class Task extends AggregateRoot {
         Task task = new Task(taskId, type, title, priority, description, creationDate);
 
         task.record(
-                new TaskCreatedDomainEvent(
-                        taskId.value(),
-                        task.toDataMap()
-                )
+                new TaskCreatedDomainEvent(taskId.value())
         );
 
         return task;
@@ -54,19 +49,13 @@ public final class Task extends AggregateRoot {
         this.description = task.description;
 
         this.record(
-                new TaskUpdatedDomainEvent(
-                        taskId.value(),
-                        toDataMap()
-                )
+                new TaskUpdatedDomainEvent(taskId.value())
         );
     }
 
     public void delete() {
         this.record(
-                new TaskDeletedDomainEvent(
-                        taskId.value(),
-                        toDataMap()
-                )
+                new TaskDeletedDomainEvent(taskId.value())
         );
     }
 
@@ -79,49 +68,43 @@ public final class Task extends AggregateRoot {
         );
         this.comments.add(comment);
 
-        Map<String, Object> commentMap = new HashMap<>();
-        commentMap.put("commentId", comment.getCommentId());
-        commentMap.put("commentContent", comment.getContent());
-
-        Map<String, Object> map = toDataMap();
-        map.put("comment", commentMap);
-
         this.record(
                 new TaskCommentPublishedDomainEvent(
                         taskId.value(),
-                        map
+                        comment.getCommentId().value(),
+                        comment.getContent().value()
                 )
         );
     }
 
-    public void assign(DeveloperId developerId){
+    public void assign(DeveloperId developerId) {
         this.state = new TaskState(TaskState.ASSIGNED);
         this.developerId = developerId;
         this.record(
                 new TaskAssignedDomainEvent(
                         taskId.value(),
-                        toDataMap()
+                        developerId != null ? developerId.value() : null
                 )
         );
     }
 
-    public void unassign(){
+    public void unassign() {
         this.state = new TaskState(TaskState.OPEN);
         this.record(
-                new TaskAssignedDomainEvent(
+                new TaskUnassignedDomainEvent(
                         taskId.value(),
-                        toDataMap()
+                        developerId != null ? developerId.value() : null
                 )
         );
         this.developerId = null;
     }
 
-    public void close(){
+    public void close() {
         this.state = new TaskState(TaskState.CLOSED);
         this.record(
-                new TaskAssignedDomainEvent(
+                new TaskClosedDomainEvent(
                         taskId.value(),
-                        toDataMap()
+                        developerId != null ? developerId.value() : null
                 )
         );
     }
@@ -146,19 +129,4 @@ public final class Task extends AggregateRoot {
         return comments;
     }
 
-    /**
-     * TODO Implement Aggregate to Event Data Serialization
-     * I dont like to have a simple Map where key fields are hardcoded
-     */
-    private Map<String, Object> toDataMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("type", type.value());
-        map.put("title", title.value());
-        map.put("priority", priority.value());
-        map.put("description", description.value());
-        map.put("state", state.value());
-        map.put("developerId", developerId != null ? developerId.value() : null);
-        map.put("creationDate", creationDate.value());
-        return map;
-    }
 }

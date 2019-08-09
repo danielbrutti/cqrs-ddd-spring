@@ -6,12 +6,12 @@ import java.util.Map;
 
 public final class DeveloperDeletedDomainEvent extends DomainEvent {
 
-    public DeveloperDeletedDomainEvent(String aggregateId, Map<String, Object> data) {
-        super(aggregateId, data);
+    public DeveloperDeletedDomainEvent(String aggregateId) {
+        super(aggregateId);
     }
 
     @Override
     public String getEventName() {
-        return DeveloperDeletedDomainEvent.class.getCanonicalName();
+        return "org.danielbrutti.developer.removed";
     }
 }

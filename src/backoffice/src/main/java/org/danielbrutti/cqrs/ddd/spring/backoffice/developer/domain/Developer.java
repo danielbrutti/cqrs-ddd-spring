@@ -21,13 +21,12 @@ public final class Developer extends AggregateRoot {
         this.assignedTaskCounter = new TaskCounter(0);
     }
 
-    private static Developer create(DeveloperId developerId, DeveloperName name) {
+    public static Developer create(DeveloperId developerId, DeveloperName name) {
         Developer developer = new Developer(developerId, name);
 
         developer.record(
                 new DeveloperCreatedDomainEvent(
-                        developerId.value(),
-                        developer.toDataMap()
+                        developerId.value()
                 )
         );
         return developer;
@@ -38,8 +37,7 @@ public final class Developer extends AggregateRoot {
 
         this.record(
                 new DeveloperUpdatedDomainEvent(
-                        developerId.value(),
-                        toDataMap()
+                        developerId.value()
                 )
         );
     }
@@ -47,8 +45,7 @@ public final class Developer extends AggregateRoot {
     public void delete() {
         this.record(
                 new DeveloperDeletedDomainEvent(
-                        developerId.value(),
-                        toDataMap()
+                        developerId.value()
                 )
         );
     }

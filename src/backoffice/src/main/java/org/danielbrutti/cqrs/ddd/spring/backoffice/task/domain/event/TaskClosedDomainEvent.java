@@ -2,16 +2,21 @@ package org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.event;
 
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEvent;
 
-import java.util.Map;
-
 public final class TaskClosedDomainEvent extends DomainEvent {
 
-    public TaskClosedDomainEvent(String aggregateId, Map<String, Object> data) {
-        super(aggregateId, data);
+    private String developerId;
+
+    public TaskClosedDomainEvent(String aggregateId, String developerId) {
+        super(aggregateId);
+        this.developerId = developerId;
     }
 
     @Override
     public String getEventName() {
-        return TaskClosedDomainEvent.class.getCanonicalName();
+        return "org.danielbrutti.task.closed";
+    }
+
+    public String getDeveloperId() {
+        return developerId;
     }
 }

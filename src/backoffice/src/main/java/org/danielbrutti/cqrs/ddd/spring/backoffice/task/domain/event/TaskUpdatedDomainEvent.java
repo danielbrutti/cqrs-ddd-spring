@@ -6,12 +6,12 @@ import java.util.Map;
 
 public final class TaskUpdatedDomainEvent extends DomainEvent {
 
-    public TaskUpdatedDomainEvent(String aggregateId, Map<String, Object> data) {
-        super(aggregateId, data);
+    public TaskUpdatedDomainEvent(String aggregateId) {
+        super(aggregateId);
     }
 
     @Override
     public String getEventName() {
-        return TaskUpdatedDomainEvent.class.getCanonicalName();
+        return "org.danielbrutti.task.updated";
     }
 }

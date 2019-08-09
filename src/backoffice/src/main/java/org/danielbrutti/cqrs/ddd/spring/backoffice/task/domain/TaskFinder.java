@@ -1,5 +1,7 @@
 package org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain;
 
+import java.util.Optional;
+
 public final class TaskFinder {
 
     private TaskRepository taskRepository;
@@ -9,14 +11,14 @@ public final class TaskFinder {
     }
 
     public Task find(TaskId id) {
-        Task task = this.taskRepository.find(id);
+        Optional<Task> task = this.taskRepository.find(id);
 
-        this.guardTaskExists(task);
+        this.guardTaskExists(task, id);
 
-        return task;
+        return task.get();
     }
 
-    private void guardTaskExists(Task task) {
-        if (null == task) throw new TaskNotFound(task.getTaskId());
+    private void guardTaskExists(Optional<Task> task, TaskId taskId) {
+        if (task.isPresent() == false) throw new TaskNotFound(taskId);
     }
 }

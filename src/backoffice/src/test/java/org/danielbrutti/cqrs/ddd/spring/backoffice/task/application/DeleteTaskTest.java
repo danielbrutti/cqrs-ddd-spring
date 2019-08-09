@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.*;
 
-public final class RemoveTaskTest {
+public final class DeleteTaskTest {
 
     private TaskRepository repository;
     private TaskFinder finder;
@@ -35,7 +35,7 @@ public final class RemoveTaskTest {
     @Test
     void should_delete_task() {
 
-        TaskRemover remover = new TaskRemover(finder, repository, publisher);
+        TaskDeleter remover = new TaskDeleter(finder, repository, publisher);
 
         TaskId taskId = task.getTaskId();
 

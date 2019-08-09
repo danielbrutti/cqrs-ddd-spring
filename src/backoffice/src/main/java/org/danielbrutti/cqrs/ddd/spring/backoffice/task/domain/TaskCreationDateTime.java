@@ -1,10 +1,10 @@
 package org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain;
 
-import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.InmutableDateTimeVO;
+import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.ImmutableDateTimeVO;
 
 import java.time.LocalDateTime;
 
-public final class TaskCreationDateTime extends InmutableDateTimeVO {
+public final class TaskCreationDateTime extends ImmutableDateTimeVO {
     public TaskCreationDateTime(LocalDateTime localDateTime) {
         super(localDateTime);
 

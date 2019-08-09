@@ -6,12 +6,25 @@ import java.util.Map;
 
 public final class TaskCommentPublishedDomainEvent extends DomainEvent {
 
-    public TaskCommentPublishedDomainEvent(String aggregateId, Map<String, Object> data) {
-        super(aggregateId, data);
+    private String commentId;
+    private String commentContent;
+
+    public TaskCommentPublishedDomainEvent(String aggregateId, String commentId, String commentContent) {
+        super(aggregateId);
+        this.commentId = commentId;
+        this.commentContent = commentContent;
     }
 
     @Override
     public String getEventName() {
-        return TaskCommentPublishedDomainEvent.class.getCanonicalName();
+        return "org.danielbrutti.task.comment.published";
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public String getCommentContent() {
+        return commentContent;
     }
 }
