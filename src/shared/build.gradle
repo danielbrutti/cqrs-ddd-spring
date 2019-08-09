@@ -1,4 +1,0 @@
-dependencies {
-    compile 'org.springframework.boot:spring-boot-starter:2.1.7.RELEASE'
-    compile group: 'com.google.guava', name: 'guava', version: '28.0-jre'
-}
