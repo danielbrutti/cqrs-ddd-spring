@@ -1,4 +1,4 @@
-group 'com.jarilla'
+group 'org.danielbrutti'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -36,9 +36,6 @@ subprojects {
     group = "com.jarilla.${rootProject.name}"
 
     dependencies {
-        // Prod
-        implementation 'io.projectreactor:reactor-bus:2.0.8.RELEASE'
-
         // Test
         testCompile "org.mockito:mockito-core:2.+"
         testCompile 'org.junit.jupiter:junit-jupiter-api:5.+'
