@@ -2,8 +2,8 @@ package org.danielbrutti.cqrs.ddd.spring.backoffice.task.application;
 
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.*;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
@@ -12,8 +12,8 @@ public final class CreateTaskTest {
     private TaskRepository repository;
     private DomainEventPublisher publisher;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         repository = mock(TaskRepository.class);
         publisher = mock(DomainEventPublisher.class);
 
@@ -23,7 +23,7 @@ public final class CreateTaskTest {
     }
 
     @Test
-    void should_create_task() {
+    public void should_create_task() {
 
         TaskCreator creator = new TaskCreator(repository, publisher);
 

@@ -6,7 +6,6 @@ import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEvent;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventListener;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventSubscriber;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -15,7 +14,6 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-@Component
 public final class GuavaDomainEventBus implements DomainEventPublisher, DomainEventSubscriber {
 
     private final Map<String, AsyncEventBus> eventBus;

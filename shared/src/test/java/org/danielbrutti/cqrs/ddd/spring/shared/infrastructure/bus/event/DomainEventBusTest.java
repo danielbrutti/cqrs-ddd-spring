@@ -4,11 +4,12 @@ import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEvent;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventListener;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventSubscriber;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.UuidVO;
-import org.junit.jupiter.api.Test;
 
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 public final class DomainEventBusTest {
 
@@ -29,6 +30,22 @@ public final class DomainEventBusTest {
 
         assertEquals(2, someEventListener.count.get());
         assertEquals(0, anotherCoolEventListener.count.get());
+    }
+
+    @Test
+    public void should_publish_set_of_event() {
+        SomeEventListener someEventListener = new SomeEventListener(eventBus);
+        AnotherCoolEventListener anotherCoolEventListener = new AnotherCoolEventListener(eventBus);
+
+        eventBus.publish(Set.of(new SomeEvent(), new SomeEvent(), new SomeEvent()));
+        eventBus.publish(Set.of(new AnotherCoolEvent(), new AnotherCoolEvent()));
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {}
+
+        assertEquals(3, someEventListener.count.get());
+        assertEquals(2, anotherCoolEventListener.count.get());
     }
 
     private final class SomeEventListener implements DomainEventListener<SomeEvent> {
@@ -64,7 +81,7 @@ public final class DomainEventBusTest {
 
         @Override
         public void subscribe() {
-            subscriber.subscribe(this, SomeEvent.class);
+            subscriber.subscribe(this, AnotherCoolEvent.class);
         }
 
         @Override

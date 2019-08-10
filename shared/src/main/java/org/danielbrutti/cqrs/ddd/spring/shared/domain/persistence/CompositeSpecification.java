@@ -9,18 +9,21 @@ public final class CompositeSpecification implements Specification {
         this.leftSpecification = leftSpecification;
     }
 
-    public void and(Specification value) {
+    public CompositeSpecification and(Specification value) {
         operator = SpecificationOperator.AND;
         rightSpecification = value;
+        return this;
     }
 
-    public void or(Specification value) {
+    public CompositeSpecification or(Specification value) {
         operator = SpecificationOperator.OR;
         rightSpecification = value;
+        return this;
     }
 
-    public void not() {
+    public CompositeSpecification not() {
         operator = SpecificationOperator.NOT;
+        return this;
     }
 
     @Override

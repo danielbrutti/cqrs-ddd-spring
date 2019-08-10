@@ -2,10 +2,14 @@ package org.danielbrutti.cqrs.ddd.spring.shared.domain.persistence;
 
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.ValueObject;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public final class SimpleSpecification implements Specification {
 
     private String attribute;
     private ValueObject value;
+    private Set<ValueObject> values;
     private SpecificationOperator operator;
 
     public SimpleSpecification(String attribute) {
@@ -42,21 +46,29 @@ public final class SimpleSpecification implements Specification {
         this.value = value;
     }
 
-    public void in(ValueObject value) {
+    public void in(Set<ValueObject> values) {
         operator = SpecificationOperator.IN;
-        this.value = value;
+        this.values = values;
     }
 
-    public void notIn(ValueObject value) {
+    public void notIn(Set<ValueObject> values) {
         operator = SpecificationOperator.NOT_IN;
-        this.value = value;
+        this.values = values;
     }
 
     @Override
     public String toString() {
-        if (SpecificationOperator.IN.equals(operator) || SpecificationOperator.NOT_IN.equals(operator)){
-            return attribute + " " + operator.value() + " (" + value.value() + ")";
+        if (SpecificationOperator.IN.equals(operator) || SpecificationOperator.NOT_IN.equals(operator)) {
+            return attribute + " "
+                    + operator.value()
+                    + " ("
+                    + values.stream()
+                    .map(ValueObject::value)
+                    .map(Object::toString)
+                    .sorted()
+                    .collect(Collectors.joining(", "))
+                    + ")";
         }
-        return attribute + " " +  operator.value() + " " + value.value();
+        return attribute + " " + operator.value() + " " + value.value();
     }
 }

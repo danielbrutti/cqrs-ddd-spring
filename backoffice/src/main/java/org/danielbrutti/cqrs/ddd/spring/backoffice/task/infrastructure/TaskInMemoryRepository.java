@@ -3,12 +3,14 @@ package org.danielbrutti.cqrs.ddd.spring.backoffice.task.infrastructure;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.Task;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskId;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Component
 public final class TaskInMemoryRepository implements TaskRepository {
 
     Map<TaskId, Task> map = Collections.synchronizedMap(new HashMap<>());

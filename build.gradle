@@ -34,17 +34,18 @@ allprojects {
 }
 
 subprojects {
-    // group = "com.jarilla.${rootProject.name}"
 
     dependencies {
         // Test
         testCompile "org.mockito:mockito-core:2.+"
-        testCompile 'org.junit.jupiter:junit-jupiter-api:5.+'
-        testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.+'
+
+        testCompile 'junit:junit:4.12'
+
     }
 
     test {
-        useJUnitPlatform()
+        // Always run tests, even when nothing changed.
+        dependsOn 'cleanTest'
 
         testLogging {
             events "passed", "skipped", "failed"

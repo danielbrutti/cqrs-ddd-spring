@@ -5,8 +5,8 @@ import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskFinder;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskRepository;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskStub;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
@@ -18,8 +18,8 @@ public final class UpdateTaskTest {
 
     private static Task task;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         task = spy(TaskStub.random());
 
         repository = mock(TaskRepository.class);
@@ -32,7 +32,7 @@ public final class UpdateTaskTest {
     }
 
     @Test
-    void should_update_task() {
+    public void should_update_task() {
 
         TaskUpdater updater = new TaskUpdater(finder, repository, publisher);
 

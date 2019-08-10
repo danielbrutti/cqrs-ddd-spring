@@ -1,14 +1,12 @@
 package org.danielbrutti.cqrs.ddd.spring.backoffice.task.application;
 
-import org.danielbrutti.cqrs.ddd.spring.backoffice.shared.domain.DeveloperId;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.Task;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskFinder;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskRepository;
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.TaskStub;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
-import org.danielbrutti.cqrs.ddd.spring.shared.domain.valueobject.UuidVO;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
@@ -20,8 +18,8 @@ public final class TaskUnassignerTest {
 
     private static Task task;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         task = spy(TaskStub.random());
 
         repository = mock(TaskRepository.class);
@@ -35,7 +33,7 @@ public final class TaskUnassignerTest {
     }
 
     @Test
-    void should_unassign_task() {
+    public void should_unassign_task() {
 
         TaskUnassigner unassigner = new TaskUnassigner(finder, repository, publisher);
 

@@ -2,8 +2,8 @@ package org.danielbrutti.cqrs.ddd.spring.backoffice.task.application;
 
 import org.danielbrutti.cqrs.ddd.spring.backoffice.task.domain.*;
 import org.danielbrutti.cqrs.ddd.spring.shared.domain.bus.event.DomainEventPublisher;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
@@ -15,8 +15,8 @@ public final class PublishCommentTest {
 
     private static Task task;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         task = spy(TaskStub.random());
 
         repository = mock(TaskRepository.class);
@@ -30,7 +30,7 @@ public final class PublishCommentTest {
     }
 
     @Test
-    void should_create_comment() {
+    public void should_create_comment() {
 
         TaskCommentPublisher commentPublisher = new TaskCommentPublisher(finder, repository, publisher);
 

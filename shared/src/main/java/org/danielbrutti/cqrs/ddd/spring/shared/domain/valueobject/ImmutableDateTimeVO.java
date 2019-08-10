@@ -16,6 +16,14 @@ public class ImmutableDateTimeVO implements ValueObject<LocalDateTime> {
         return value;
     }
 
+    public boolean isBefore(ImmutableDateTimeVO other) {
+        return this.value.isBefore(other.value);
+    }
+
+    public boolean isAfter(ImmutableDateTimeVO other) {
+        return this.value.isAfter(other.value);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
