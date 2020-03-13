@@ -58,7 +58,7 @@ subprojects {
 
     hello {
         doLast {
-            println "- I depend on water"
+            println "I'm a child project"
         }
     }
 }

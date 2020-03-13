@@ -3,6 +3,12 @@ plugins {
     id 'org.springframework.boot' version '2.1.7.RELEASE'
 }
 
+hello {
+    doLast {
+        println "I'm Backoffice!"
+    }
+}
+
 dependencies {
     compile project(":shared")
 
