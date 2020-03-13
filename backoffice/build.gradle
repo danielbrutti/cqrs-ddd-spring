@@ -9,6 +9,6 @@ dependencies {
     compile     group:"org.springframework.boot", name:"spring-boot",               version:"${springBootVersion}"
     compile     group:"org.springframework.boot", name:"spring-boot-starter",       version:"${springBootVersion}"
     compile     group:"org.springframework.boot", name:"spring-boot-starter-web",   version:"${springBootVersion}"
-    testCompile (group:"org.springframework.boot", name:"spring-boot-starter-test",  version:"${springBootVersion}")
+    testCompile group:"org.springframework.boot", name:"spring-boot-starter-test",  version:"${springBootVersion}"
 
 }
